@@ -1,0 +1,2674 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\date{}
+\usepackage{algorithm,algpseudocode}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement h
+\paperfontsize default
+\spacing onehalf
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2.5cm
+\topmargin 2.5cm
+\rightmargin 2.5cm
+\bottommargin 2.5cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip bigskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+
+\lang british
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+twocolumn[ 
+\backslash
+begin{@twocolumnfalse}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+
+\series bold
+\lang british
+COMP6202 Assignment2
+\begin_inset Newline newline
+\end_inset
+
+How Do Coevolutionary Dynamics in a Minimal Substrate Change with an Increase
+ in the Number of Populations?
+\end_layout
+
+\begin_layout Author
+
+\lang british
+Author: Rishin Amin
+\begin_inset Newline newline
+\end_inset
+
+Student I.D: 26725479
+\begin_inset Newline newline
+\end_inset
+
+
+\shape italic
+ra8g14@soton.ac.uk
+\shape default
+
+\begin_inset Newline newline
+\end_inset
+
+Personal Tutor: Alex Weddell
+\begin_inset Newline newline
+\end_inset
+
+January 2018
+\end_layout
+
+\begin_layout Abstract
+Three sets of results from a paper[1] are successfully reproduced to illustrate
+ coevolutionary failures.
+ The experiments are then repeated with more populations to confirm the
+ hypothesis that increasing the number of populations from 2 to 10 solves
+ the problem of 'focussing' or 'over specialization' within species containing
+ multiple dimensions contributing to objective fitness.
+\end_layout
+
+\begin_layout Standard
+
+\lang british
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{@twocolumnfalse} ]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+The Original Paper
+\end_layout
+
+\begin_layout Standard
+The original paper[1] explores and illustrates the following three cases
+ pertinent to coevolutionary failure: Loss of gradient, over-specialisation
+ and relativism.
+ Three experiments are devised to aid this discussion, all of which make
+ use of a minimal substrate.
+ This makes it easier to attribute issues to coevolutionary techniques and
+ diagnose that they are not a product of the complexity of the task
+\end_layout
+
+\begin_layout Subsection
+Experiment One: Loss of Gradient
+\end_layout
+
+\begin_layout Standard
+Experiment one illustrates the concept of a 'loss of gradient' in a coevolutiona
+ry set-up.
+ This is achieved using the coevolution of scalar values; where the scalar
+ value being evolved is the unitation of a bit string i.e.
+ the fitter the individual the more ones in its bit string.
+ 
+\end_layout
+
+\begin_layout Standard
+A loss of gradient causes a population to drift without improvement[1].
+ This coevolutionary pathology can be explained by the Red Queen Effect[2].
+ The subjective performance of individuals in a species does not improve
+ despite improvements in their objective fitness as the competing species
+ improves at the same rate.
+\end_layout
+
+\begin_layout Standard
+The experiment is formalised using equation 1[1].
+ The value returned is with respect to a random sample of individuals 
+\shape italic
+S
+\shape default
+ from the competing population.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename eq1.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This creates a distinction between the objective and subjective fitness
+ of an individual.
+ Individuals are evolved based on their performance against the other population
+ as opposed to an objective fitness metric.
+\end_layout
+
+\begin_layout Subsection
+Distinction Between Objective and Subjective Fitness
+\end_layout
+
+\begin_layout Standard
+An important distinction between the objective and subjective fitness of
+ an individual is clarified in the original paper[1].
+ The objective fitness is defined as the metric that we are attempting to
+ optimize, whilst the subjective fitness is the perceived performance of
+ the co-evolving individual.
+ This relates to the number of ones in an individuals bit string and the
+ result of the defined subjective fitness functions (see equations) respectively.
+\end_layout
+
+\begin_layout Subsection
+Mutation Biases and Justification for Approach
+\end_layout
+
+\begin_layout Standard
+The nature of the approach (representing individuals using bit strings)
+ results in an inherent mutation bias.
+ A mutation bias of 0.005 is used in the original paper.
+ This value is derived from the string length, 100, and the natural bias
+ towards half 0s and half 1s[5].
+ The chosen mutation bias results in, on average, 1 bit being assigned a
+ new random value per individual 
+\size small
+selected for reproduction 
+\size default
+for each generation.
+\end_layout
+
+\begin_layout Subsection
+Experiment Two: Over Specialization
+\end_layout
+
+\begin_layout Standard
+Experiment Two introduces multiple dimensions to an individuals definition.
+ Instead of having one dimension 100 bits long.
+ 10 dimensions each 10 bits long are used for representation.
+\end_layout
+
+\begin_layout Standard
+A single dimension determines the outcome of a match between competing individua
+ls.
+ For Experiment Two, this is the dimension with the largest difference between
+ the individuals.
+ Equation 2[1] characterizes this approach:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename eq2.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This set-up is used to illustrate 'over specialization' or 'focussing'.
+ A phenomenon where high performance cannot simultaneously be maintained
+ in all dimensions.
+ Whilst one dimension is focussed on and developed to improve against the
+ other population the other nine drift towards their neutral 
+\begin_inset Quotes eld
+\end_inset
+
+50:50
+\begin_inset Quotes erd
+\end_inset
+
+ composition.
+\end_layout
+
+\begin_layout Subsection
+Experiment Three: Relativism
+\end_layout
+
+\begin_layout Standard
+The third experiment demonstrates intransitive superiority[2] in a coevolutionar
+y framework.
+ The aim is to replicate a cyclical scenario where, for three members, 
+\begin_inset Quotes eld
+\end_inset
+
+
+\shape italic
+a
+\shape default
+ beats 
+\shape italic
+b
+\shape default
+ beats 
+\shape italic
+c
+\shape default
+ beats 
+\shape italic
+a
+\shape default
+
+\begin_inset Quotes erd
+\end_inset
+
+[1].
+ A slight alteration to equation 2
+\series bold
+ 
+\series default
+so the dimension with the 
+\shape italic
+smallest
+\shape default
+ difference is used to determine the score between two individuals, can
+ introduce circular dominance relations.
+ Equation 3[1] represents this altered approach.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename eq3.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Reimplementing Results
+\end_layout
+
+\begin_layout Subsection
+Experimental Set Up
+\end_layout
+
+\begin_layout Standard
+The experiments described in the previous section have been re-implemented,
+ the parameters used can be found in table 1
+\series bold
+.
+
+\series default
+ The run function found in the appendix defines the general approach for
+ each experiment.
+ 
+\shape italic
+Length 
+\shape default
+(of each dimension), 
+\shape italic
+dimensions
+\shape default
+, 
+\shape italic
+eq
+\shape default
+ (equation used to calculate subjective fitness) and 
+\shape italic
+generations 
+\shape default
+(number of generations to run the simulation) are the main variables between
+ experiments (the sample size was altered on one occasion).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="9" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Parameter
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Evolutionary Algorithm
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Generational
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Selection Scheme
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Roulette Wheel
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Sample Size (S)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Variable
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Representation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Bit string
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Population Size
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+25
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Dimensions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Variable
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Dimension Length
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Variable
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Subjective Fitness Equation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Variable
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Parameters for reimplementing results
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+A Generational approach is taken; to produce a new generation fitness proportion
+ate selection (roulette wheel selection) is used.
+ The number of times the 'wheel' is spun is equal to the size of the population,
+ each time the selected individual is passed through a mutate function,
+ where each bit has a probability equal to the mutation bias of being assigned
+ a new random value.
+ 
+\end_layout
+
+\begin_layout Subsection
+Reimplemented Results with Discussion
+\end_layout
+
+\begin_layout Standard
+All of the reimplemented results were run for double the number of generations,
+ to corroborate the expected behavior and in some cases showcase downward
+ trends and separation between the populations multiple times (ruling out
+ anomalous characteristics).
+ This decision was substantiated by the fact that running the simulations
+ was not very computationally expensive.
+\end_layout
+
+\begin_layout Subsubsection
+Experiment One: Loss of Gradient
+\end_layout
+
+\begin_layout Standard
+The parameters shown in 
+\series bold
+Table 2
+\series default
+ are used to replicate the results for the first part of Experiment One
+ from the original paper.
+ 
+\series bold
+Figure 1 
+\series default
+shows the original and reimplemented results.
+ Both sets of results show the same trend: The populations reach the optimal
+ solution after approximately 400 generations, with a variation in the subjectiv
+e fitness of one populations equal to around one minus the subjective fitness
+ of the other.
+ Due to the performance improvement of opponents at the same rate, the average
+ subjective fitness of the population plateaus once the optimal objective
+ fitness is reached.
+ This is problematic in scenarios where an objective fitness of an individual
+ is not measurable.
+ However, the optimal solution could be inferred when the average subjective
+ fitness has converged.
+ 
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Parameter
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Sample Size (S)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+15
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Population Size
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+25
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Dimensions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Dimension Length
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+100
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Subjective Fitness Equation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+eq1
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Parameters for reimplementing experiment one
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename original_exp1.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Original results
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename reimplemented_exp1.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Reimplemented Results
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Reimplemented results for experiment one (original on top)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+The parameter values used to replicate the second part of Experiment One
+ are the same as those shown in Table 2, save the sample size, 
+\shape italic
+S, 
+\shape default
+which is now 1.
+ Now each member competes with a randomly selected member of the other populatio
+n.
+ Comparing the results shown in 
+\series bold
+Figure 2 
+\series default
+it is clear that in both set there are multiple downward and upward trends,
+ with periods of complete separation between the populations.
+ These downward trends coincide with a period of polarisation in the subjective
+ fitnesses of the populations for both graphs.
+ Showing that all the individuals in one population beat all the individuals
+ in the other.
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename reimplemented_exp1_1.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Original results
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename original_exp1.1.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Reimplemented Results
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Reimplemented results for experiment one (original on top)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Experiment Two: Over Specialization
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Table 3 
+\series default
+provides the parameters used to replicate the results for Experiment Two.
+ 
+\series bold
+Figure 3 
+\series default
+compares the reimplemented results with original set for this experiment
+ and shows that the experiment was successfully reimplemented.
+ Both results show the same trends in objective and subjective fitness.
+ The objective performance never reaches 100 for an individual and the subjectiv
+e performances continue to show an inversely proportional relationship.
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Parameter
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Sample Size (S)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+15
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Population Size
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+25
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Dimensions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+10
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Dimension Length
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+10
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Subjective Fitness Equation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+eq2
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Parameters for reimplementing experiment two
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename original_exp2.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Original results
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename reimplemented_exp2.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Reimplemented Results
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Reimplemented results for experiment two (original on top)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In both cases the trends are explained by the fact that top performance
+ across all dimensions cannot be maintained due to 
+\begin_inset Quotes eld
+\end_inset
+
+focussing
+\begin_inset Quotes erd
+\end_inset
+
+ within a single dimension.
+ Here we can see the principles of the Red Queen Effect applied to dimensions
+ within an individual.
+ Although the performance across one dimension is improving, the performance
+ across that dimension is improving at the same rate in the other population.
+ Once maximal performance in this dimension is achieved, a change in performance
+ in another dimension can cause a population to improve subjectively, leading
+ to a focus on improving that dimension, subsequently the improvements in
+ the original dimension are lost and the competing population is improving
+ at the same rate in the new dimension - so the cycle continues.
+\end_layout
+
+\begin_layout Subsubsection
+Experiment Three: Relativism
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Parameter
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Sample Size (S)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+15
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Population Size
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+25
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Dimensions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+10
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Dimension Length
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+10
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Subjective Fitness Equation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+eq3
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Parameters for reimplementing experiment two
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename original_exp3.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Original results
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename reimplemented_exp3.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Reimplemented Results
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Reimplemented results for experiment three (original on top)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Table 4 
+\series default
+details the parameters used to replicate the results for Experiment Three.
+ 
+\series bold
+Figure 4
+\series default
+ provides a comparison between the original and reimplemented results for
+ this experiment.
+ Both sets of results show that the objective fitness is being driven down,
+ below the natural bias towards 50.
+ This is more apparent in the reimplemented version.
+ A reduction in the objective fitness in a dimension for an individual can
+ lead to improvements in subjective performance, explaining this behavior.
+ Reducing objective performance can increase the difference in that dimension
+ between two competing individuals and change the applicable dimension when
+ calculating the subjective fitness.
+\end_layout
+
+\begin_layout Section
+Coevolutionary Behavior With More Populations - Does this Fix Focussing?
+\end_layout
+
+\begin_layout Standard
+The experiments from the original paper are extended to cover a coevolutionary
+ set-up where more than 2 populations are used in the aim to fix the problem
+ of over specialization illustrated in Experiment Two.
+ The author hypothesizes that increasing the number of populations will
+ lead to generalization in the case of Experiment Two.
+ Drawing the sample, 
+\shape italic
+S,
+\shape default
+ randomly from multiple populations (excluding the population that the individua
+l is a part of) could lead to a situation where 'forgetting' objective improveme
+nt in a single dimension is detrimental to the individual's subjective performan
+ce.
+\end_layout
+
+\begin_layout Standard
+No discernible improvement in the issues described in Experiment's One and
+ Three is expected with an increase in the number of populations.
+ For Experiment One (Figure 2), it is likely that there will still be periods
+ of polarisation where some populations are dominant and others are not,
+ leading to a downward drift towards the neutral performance position owing
+ to a lack of selective pressure.
+ The nature of the game defined for Experiment Three, means that intransitive
+ superiority cannot be solved simply by increasing the number of populations.
+ Objective performance levels can still be driven down to produce a gain
+ in subjective performance.
+\end_layout
+
+\begin_layout Subsection
+Justification
+\end_layout
+
+\begin_layout Standard
+A similar coevolutionary hypothesis is proposed by Zhal et al.[4], where
+ multiple populations are used for multiple objectives, so the fitness in
+ a population is defined by a single objective.
+ However, this extension does not assign each population a specialist 'dimension
+' or 'objective', but aims to produce a generalist across all populations;
+ so improvements learnt in one dimension are not forgotten, when improvements
+ are made in another.
+\end_layout
+
+\begin_layout Subsection
+Experimental Set Up
+\end_layout
+
+\begin_layout Standard
+The exact same parameters described in section 2.2 are used to produce the
+ extended results.
+ The only difference in the experimental set-up is that 10 populations are
+ used instead of 2.
+ When calculating the subjective fitness of an individual, the sample, 
+\shape italic
+S
+\shape default
+, consists of members randomly drawn from the remaining 9 populations.
+ This has two consequences: 1) The random sample contains a greater genetic
+ diversity 2) The selective pressure is drawn from a larger pool of individuals,
+ whilst maintaining the independence of reproduction and selection between
+ populations.
+\end_layout
+
+\begin_layout Subsection
+Results
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Figure 5 
+\series default
+shows the coevolutionary dynamics for 10 competing populations.
+ These results will be compared with 
+\series bold
+Figure 2
+\series default
+, hence, the parameters used are the same as those given in 
+\series bold
+Table 2
+\series default
+ apart from the sample size, 
+\shape italic
+S
+\shape default
+, which equals 1.
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename extended_exp1_1.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Extended Results for experiment one
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Figure 6b 
+\series default
+shows the results for Experiment Two with multiple populations.
+ The objective fitness took longer than 1200 generations to converge, hence,
+ in 
+\series bold
+Figure 6a
+\series default
+ the original experiment is repeated for the same number of generations
+ to provide a fair comparison.
+ The parameters given in 
+\series bold
+Table 3
+\series default
+ are used to produce both figures.
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename extended_exp2_1.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+2 populations
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename extended_exp2_2.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+10 populations
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Extended results for experiment two (original on top)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The extended results for Experiment Three are illustrated in 
+\series bold
+Figure 7 
+\series default
+for 1 and 10 populations.
+
+\series bold
+ 
+\series default
+The same parameters in 
+\series bold
+Table 4 
+\series default
+are used to produce this figure.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename extended_exp3.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Extended Results for experiment three
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Discussion
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Figure 5 
+\series default
+shows an interesting dynamic.
+ Unlike the case illustrated in 
+\series bold
+Figure 2
+\series default
+, the maximal objective fitness is reached by some populations.
+ However, once this occurs, there is a general drift towards the natural
+ bias, as expected.
+ 
+\series bold
+Figure 6 
+\series default
+shows the subjective fitnesses for the 10 populations.
+ As in 
+\series bold
+Figure 2
+\series default
+ some polarisation is observable.
+ This is accompanied by the downward trend of some populations towards the
+ natural bias.
+ A particular matter of intrigue is the complete domination over population
+ 7.
+ A clear divergence at around 200 generations can be seen in 
+\series bold
+Figure 5
+\series default
+, corroborated by the polarization of the subjective fitness in 
+\series bold
+Figure 2.
+
+\series default
+ This reveals that if a population does not improve at fast enough rate
+ objectively, it can be 'left behind' by the other populations which continue
+ to improve and not drift to the same level as they play against other competing
+ populations that are improving objectively.
+ In the case of two populations domination by one population will be resolved
+ as both start to drift towards the natural bias.
+\end_layout
+
+\begin_layout Standard
+Comparing the results in 
+\series bold
+Figure 6
+\series default
+, it is apparent that introducing more populations to the coevolutionary
+ game has lead to the optimal fitness across all dimensions being found.
+ The solution took a greater number of generations to converge, but this
+ is expected, as it takes longer to maintain optimal performance across
+ all dimensions.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Figure 7 
+\series default
+illustrates that, as predicted, there is not much improvement in the objective
+ fitness of the populations.
+ Intransitive superiority still exists between multiple populations.
+ The populations continue to repeatedly travel the same part of strategy
+ space.
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+The results from the original paper were successfully reimplemented and
+ discussed.
+ The parameters used for each experiment are clearly provided as well as
+ the general approach taken.
+ An extension to this paper was then proposed: Does increasing the number
+ of populations in a coevolutionary set-up fix focussing? The experiments
+ were repeated with 10 populations and compared against the results for
+ two populations.
+ As predicted, repeating Experiments One and Three illustrated the same
+ issues of a loss of gradient and over specialization for more than two
+ populations.
+ Repeating Experiment Two, showed that increasing the number of populations
+ does indeed solve the problem of over specialization or focussing in a
+ coevolutionary set-up.
+ Forgetting improvements in one dimension lead to poorer subjective performance
+ as an individual could compete against a population containing specialists
+ in that dimension in any generation.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "1"
+key "orig"
+
+\end_inset
+
+Watson, Richard A.
+ and Pollack, Jordan B., Spector, Lee(ed.) (2001) Coevolutionary Dynamics
+ in a Minimal Substrate Proceedings of the Genetic and Evolutionary Computation
+ Conference (GECCO 2001), pp.
+ 702-709.
+ 
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "2"
+key "RedQueen"
+
+\end_inset
+
+Cliff, D, & Miller, GF, 1995, “Tracking the Red Queen: Measurements of adaptive
+ progress in co-evolutionary simulations”, Third European conference on
+ Artificial Life, pp 200-218, Springer-Verlag, LNCS 929.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "3"
+key "ArmsRace"
+
+\end_inset
+
+Ficici, SG.
+ & Pollack, JB., 1998, “Challenges in Coevolutionary Learning: Arms-Race
+ Dynamics, Open- Endedness, and Mediocre Stable States.” Proceedings of the
+ Sixth International Conference on Artificial Life.
+ Adami, et al, eds.
+ Cambridge: MIT, Press.
+ 
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "4"
+key "justification"
+
+\end_inset
+
+Zhi-Hui Zhan, Jingjing Li, Jiannong Cao, Jun Zhang, H.
+ Chung and Yu-Hui Shi, "Multiple Populations for Multiple Objectives: A
+ Coevolutionary Technique for Solving Multiobjective Optimization Problems",
+ IEEE Transactions on Cybernetics, vol.
+ 43, no.
+ 2, pp.
+ 445-463, 2013.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "5"
+key "Fisher"
+
+\end_inset
+
+Fisher, RA, 1930, The genetical theory of natural selection, Clarendon press,
+ oxford.
+\end_layout
+
+\begin_layout Section*
+\start_of_appendix
+
+\lang british
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+twocolumn[ 
+\backslash
+begin{@twocolumnfalse}
+\end_layout
+
+\end_inset
+
+
+\lang english
+
+\begin_inset Newpage newpage
+\end_inset
+
+Appendix
+\end_layout
+
+\begin_layout Subsection*
+Code
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "/Users/Rishin/Google Drive/Documents/4th_year/COMP6026/Assignment2/assignment2_master.py"
+lstparams "breaklines=true,captionpos=b,frame=tb,language=C,numbers=left"
+
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\lang british
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{@twocolumnfalse}]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
